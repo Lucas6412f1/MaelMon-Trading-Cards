@@ -8,8 +8,8 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #1bff50a2;
-    color: #00000000;
+    background-color: #036d1ca2;
+    color: #0b4002;
     line-height: 1.6;
 }
 
@@ -40,14 +40,14 @@ nav a {
 }
 
 nav a:hover {
-    background-color: #10b431;
+    background-color: #086d1d;
 }
 
 main {
     padding: 2rem;
     max-width: 1200px;
     margin: 20px auto;
-    background-color: rgba(20, 83, 5, 0.646);
+    background-color: rgba(51, 255, 0, 0);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
