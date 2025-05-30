@@ -1,3 +1,9 @@
+.battle {
+    display: none; /* Verberg de battle sectie voor nu */
+}
+.shop {
+    display: none; /* Verberg de shop sectie voor nu */
+}
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
