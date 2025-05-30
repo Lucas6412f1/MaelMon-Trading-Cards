@@ -9,7 +9,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #1bff50a2;
-    color: #000000;
+    color: #00000000;
     line-height: 1.6;
 }
 
@@ -47,7 +47,7 @@ main {
     padding: 2rem;
     max-width: 1200px;
     margin: 20px auto;
-    background-color: rgba(51, 255, 0, 0.315);
+    background-color: rgba(20, 83, 5, 0.646);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
@@ -58,7 +58,7 @@ main {
 }
 
 #startButton {
-    background-color: #27ae60;
+    background-color: #025f29;
     color: white;
     padding: 15px 30px;
     border: none;
