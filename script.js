@@ -3,7 +3,7 @@
 let currentUserData = null;
 const DAILY_PACK_COOLDOWN_MS = 24 * 60 * 60 * 1000; // Must match backend
 
-// Function to fetch user data
+// Functie om gebruikersdata op te halen
 async function fetchUserData() {
     try {
         const response = await fetch('https://maelmon-backend.onrender.com/api/user', {
@@ -11,16 +11,18 @@ async function fetchUserData() {
         });
         if (!response.ok) {
             // If not logged in or another error (e.g., 401), return false
+            // This means the session might be expired or not present
             return { isLoggedIn: false, error: `HTTP error! status: ${response.status}` };
         }
         return await response.json();
     } catch (error) {
         console.error("Error fetching user data:", error);
+        // Network error or other issue, assume not logged in for safety
         return { isLoggedIn: false, error: "Could not retrieve user data. Please try logging in again." };
     }
 }
 
-// Function to initialize common settings (Dark mode, font size, accent color)
+// Functie om gemeenschappelijke instellingen te initialiseren (Donkere modus, lettergrootte, accentkleur)
 function initializeSettings() {
     const toggleDarkModeButton = document.getElementById('toggleDarkMode');
     const colorPicker = document.getElementById('colorPicker');
@@ -84,7 +86,7 @@ function initializeSettings() {
     }
 }
 
-// Function to update the navbar and general user info
+// Functie om de navbar en algemene gebruikersinfo bij te werken
 function updateNavbarAndUserInfo() {
     const welcomeMessage = document.getElementById('welcomeMessage');
     const currencyDisplay = document.getElementById('currencyDisplay');
@@ -141,7 +143,7 @@ function showModal(contentHtml) {
 }
 
 
-// Function to claim Daily Pack
+// Functie om Dagelijks Pakket te claimen
 async function claimDailyPack() {
     if (!currentUserData || !currentUserData.isLoggedIn) {
         showModal('<p class="error">You need to be logged in to claim a daily pack.</p>');
@@ -160,7 +162,9 @@ async function claimDailyPack() {
         const result = await response.json();
 
         if (response.ok) {
-            currentUserData.lastPackClaimed = new Date().toISOString(); // Update locally for immediate feedback
+            // Update lastPackClaimed locally and then fetch user data again to get the latest currency and other updates
+            // A full fetch ensures consistency, though a local update + `updateNavbarAndUserInfo` is faster for immediate feedback
+            currentUserData = await fetchUserData(); // Fetch updated user data
             showModal(`
                 <p style="color: lightgreen; font-weight: bold;">${result.message}</p>
                 ${result.card ? `
@@ -171,7 +175,7 @@ async function claimDailyPack() {
                     <p>Rarity: ${result.card.rarity}</p>
                 ` : ''}
             `);
-            updateNavbarAndUserInfo(); // Update currency and cooldown display
+            updateNavbarAndUserInfo(); // Update navbar with potentially new currency/cooldown
         } else {
             showModal(`<p class="error">${result.message}</p>`);
         }
@@ -182,36 +186,22 @@ async function claimDailyPack() {
 }
 
 
-// --- Initialization based on the current page ---
+// --- Initialisatie op basis van de huidige pagina ---
 document.addEventListener('DOMContentLoaded', async () => {
     const path = window.location.pathname;
 
     // Always fetch user data when any page loads
+    // This call determines login status based on the session cookie
     currentUserData = await fetchUserData();
 
-    // Control access to specific pages
-    if (path === '/dashboard.html' || path === '/admin.html') {
-        if (!currentUserData.isLoggedIn) {
-            window.location.href = '/login.html'; // Not logged in, redirect
-            return;
-        }
-        if (path === '/admin.html' && !currentUserData.isAdmin) {
-            // If trying to access admin.html and not an admin, redirect
-            window.location.href = '/'; // Redirect to home page
-            return;
-        }
-    } else if (path === '/login.html') {
-        // If already logged in on login.html, redirect to home
-        if (currentUserData.isLoggedIn) {
-            window.location.href = '/';
-            return;
-        }
-    }
-
-
-    // Page-specific logic
+    // Handle page redirection based on login status and admin role
     if (path === '/' || path === '/index.html') {
-        // Main app page logic
+        // If on the main app page but not logged in, redirect to login.html
+        if (!currentUserData.isLoggedIn) {
+            window.location.href = '/login.html';
+            return; // Stop further execution
+        }
+        // If logged in, proceed with index.html specific logic
         const appContainer = document.getElementById('app');
         if (appContainer) {
             appContainer.innerHTML = `
@@ -250,15 +240,26 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
     } else if (path === '/login.html') {
-        // Logic for the login page
+        // If on the login page but already logged in, redirect to index.html
+        if (currentUserData.isLoggedIn) {
+            window.location.href = '/';
+            return; // Stop further execution
+        }
+        // Otherwise, initialize the login button
         const loginButton = document.getElementById('loginButton');
         if (loginButton) {
             loginButton.addEventListener('click', () => {
                 window.location.href = 'https://maelmon-backend.onrender.com/auth/twitch';
             });
         }
+
     } else if (path === '/dashboard.html') {
-        // Logic for the dashboard page
+        // If on dashboard.html but not logged in, redirect to login.html
+        if (!currentUserData.isLoggedIn) {
+            window.location.href = '/login.html';
+            return;
+        }
+        // Logic for the dashboard page (remains largely the same)
         const dashboardContent = document.getElementById('dashboard-content');
         const adminLinkContainer = document.getElementById('adminLinkContainer');
         const usernameInput = document.getElementById('usernameInput');
@@ -296,7 +297,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         initializeSettings(); // Call the settings function
     } else if (path === '/admin.html') {
-        // Logic for the admin page
+        // If on admin.html but not logged in or not an admin, redirect
+        if (!currentUserData.isLoggedIn) {
+            window.location.href = '/login.html'; // Not logged in, redirect to login
+            return;
+        }
+        if (!currentUserData.isAdmin) {
+            window.location.href = '/'; // Logged in but not admin, redirect to home
+            return;
+        }
+        // Logic for the admin page (remains largely the same)
         const adminContent = document.getElementById('admin-content');
         const addCardForm = document.getElementById('addCardForm');
         const addCardMessage = document.getElementById('addCardMessage');
