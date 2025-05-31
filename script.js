@@ -7,7 +7,7 @@ const DAILY_PACK_COOLDOWN_MS = 24 * 60 * 60 * 1000; // Must match backend
 async function fetchUserData() {
     try {
         const response = await fetch('https://maelmon-backend.onrender.com/api/user', {
-            credentials: true
+            credentials: 'include'
         });
         if (!response.ok) {
             // If not logged in or another error (e.g., 401), return false
