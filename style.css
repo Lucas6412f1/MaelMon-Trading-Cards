@@ -42,6 +42,15 @@ button:hover {
     background-color: #21a1f1;
 }
 
+/* Nieuwe classes voor specifieke knopmarges */
+.button-spacing-top-20 {
+    margin-top: 20px;
+}
+.button-spacing-top-10 {
+    margin-top: 10px;
+}
+
+
 a {
     color: var(--accent-color, #61dafb);
     text-decoration: none;
@@ -55,9 +64,23 @@ img {
     margin-bottom: 15px;
 }
 
+/* Nieuwe class voor profielfoto */
+.profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+
 p.error {
     color: #ff6347;
     font-weight: bold;
+}
+
+/* Nieuwe class voor algemene berichttekst (error/succes) */
+.message-text {
+    color: yellow; /* Standaardkleur, kan overschreven worden door JS */
+    font-weight: bold; /* Indien gewenst, maar 'error' heeft al bold */
 }
 
 /* Dark mode specifieke styles */
@@ -75,8 +98,8 @@ body.dark-mode .container {
     display: block; /* Nu alles direct renderen in appDiv */
 }
 
-/* Styling voor instellingen velden */
-input[type="text"], input[type="number"], input[type="url"], select {
+/* Styling voor instellingen velden (aangepast naar .input-field) */
+.input-field {
     padding: 8px;
     margin: 10px 0;
     border-radius: 4px;
@@ -87,11 +110,33 @@ input[type="text"], input[type="number"], input[type="url"], select {
     box-sizing: border-box; /* Padding is inclusief breedte */
 }
 
-input[type="color"] {
+/* Nieuwe class voor color picker input */
+.color-picker-input {
     height: 40px; /* Groter maken voor makkelijkere selectie */
     padding: 0;
     border: none;
     background: none;
     cursor: pointer;
     vertical-align: middle;
+    margin-top: 10px; /* Overgenomen van inline style */
+}
+
+/* Nieuwe class voor horizontale lijn */
+.hr-divider {
+    margin: 30px 0;
+    border-color: #555;
+}
+
+/* Nieuwe class voor links uitlijnen van formulier */
+.form-left-align {
+    text-align: left;
+}
+
+/* Nieuwe classes voor p elementen met specifieke top margin */
+.p-spacing-top-15 {
+    margin-top: 15px;
+}
+
+.p-spacing-top-20 {
+    margin-top: 20px;
 }

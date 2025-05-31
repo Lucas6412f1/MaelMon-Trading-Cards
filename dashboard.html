@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MaelMon Trading Cards - Dashboard</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div id="app" class="container">
+        <h1>Dashboard</h1>
+        <div id="dashboard-content">
+            <p>Laden van gebruikersdata...</p>
+        </div>
+
+        <button id="logoutButton" class="button-spacing-top-20">Uitloggen</button>
+        <a href="/">Terug naar Home</a>
+        <div id="adminLinkContainer"></div>
+
+        <h2>Jouw Kaarten:</h2>
+        <div id="userCards">
+            <p>Hier wordt later de lijst met kaarten weergegeven.</p>
+        </div>
+
+        <hr class="hr-divider">
+
+        <h2>Accountinstellingen</h2>
+        <div id="settings-section">
+            <h3>Gebruikersnaam aanpassen:</h3>
+            <input type="text" id="usernameInput" placeholder="Nieuwe gebruikersnaam" class="input-field">
+            <button id="updateUsernameButton">Opslaan</button>
+            <p id="usernameMessage" class="message-text"></p>
+
+            <h3>Weergave:</h3>
+            <button id="toggleDarkMode">Dark Mode (AAN/UIT)</button>
+            <input type="color" id="colorPicker" value="#61dafb" class="color-picker-input">
+            <label for="colorPicker">Accentkleur</label>
+            <p class="p-spacing-top-15">Tekstgrootte:
+                <button id="decreaseFontSize">-</button>
+                <span id="currentFontSize">16px</span>
+                <button id="increaseFontSize">+</button>
+            </p>
+        </div>
+    </div>
+
+    <script src="/script.js"></script>
+</body>
+</html>

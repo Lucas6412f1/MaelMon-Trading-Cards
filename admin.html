@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MaelMon Trading Cards - Admin</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div id="app" class="container">
+        <h1>Admin Paneel</h1>
+        <div id="admin-content">
+            <p>Laden van admin data...</p>
+        </div>
+
+        <hr class="hr-divider">
+
+        <h2>Kaart Toevoegen</h2>
+        <form id="addCardForm" class="form-left-align">
+            <label for="cardName">Naam:</label><br>
+            <input type="text" id="cardName" name="name" required class="input-field"><br><br>
+
+            <label for="cardType">Type:</label><br>
+            <select id="cardType" name="type" required class="input-field">
+                <option value="Monster">Monster</option>
+                <option value="Spell">Spell</option>
+                <option value="Item">Item</option>
+            </select><br><br>
+
+            <label for="cardAttack">Attack:</label><br>
+            <input type="number" id="cardAttack" name="attack" required class="input-field"><br><br>
+
+            <label for="cardDefense">Defense:</label><br>
+            <input type="number" id="cardDefense" name="defense" required class="input-field"><br><br>
+
+            <label for="characterImageUrl">Karakter Afbeelding URL:</label><br>
+            <input type="url" id="characterImageUrl" name="characterImageUrl" required class="input-field"><br><br>
+
+            <label for="backgroundImageUrl">Achtergrond Afbeelding URL:</label><br>
+            <input type="url" id="backgroundImageUrl" name="backgroundImageUrl" required class="input-field"><br><br>
+
+            <label for="cardRarity">Zeldzaamheid:</label><br>
+            <select id="cardRarity" name="rarity" required class="input-field">
+                <option value="Common">Common</option>
+                <option value="Uncommon">Uncommon</option>
+                <option value="Rare">Rare</option>
+                <option value="Epic">Epic</option>
+                <option value="Legendary">Legendary</option>
+                <option value="Unique">Unique</option>
+            </select><br><br>
+
+            <label for="maxSupply">Max Supply (-1 voor onbeperkt):</label><br>
+            <input type="number" id="maxSupply" name="maxSupply" value="-1" class="input-field"><br><br>
+
+            <button type="submit">Kaart Toevoegen</button>
+        </form>
+        <p id="addCardMessage" class="message-text p-spacing-top-15"></p>
+
+        <p class="p-spacing-top-20">
+            <a href="/dashboard.html">Terug naar Dashboard</a>
+        </p>
+        <p>
+            <a href="/">Terug naar Home</a>
+        </p>
+    </div>
+
+    <script src="/script.js"></script>
+</body>
+</html>
