@@ -1,16 +1,35 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MaelMon Trading Cards - Home</title>
+    <title>MaelMon Trading Cards</title>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+    <div id="navbar">
+        <a href="/" class="nav-brand">MaelMon</a>
+        <div class="nav-links">
+            <a href="/dashboard.html">My Cards</a>
+            <a href="#" id="dailyPackLink">Daily Pack</a>
+            <a href="#" id="shopLink">Shop</a>
+            <a href="/admin.html" id="adminLink" class="hidden">Admin Panel</a> </div>
+        <div class="user-info">
+            <span id="welcomeMessage"></span>
+            <span id="currencyDisplay"></span>
+            <button id="logoutButtonNav">Logout</button>
+        </div>
+    </div>
+
     <div id="app" class="container">
-        <h1>Welkom bij MaelMon Trading Cards!</h1>
-        <p>Log in met Twitch om je kaarten te beheren en te bekijken.</p>
-        <button id="loginButton">Login met Twitch</button>
+        <h1>Loading...</h1>
+    </div>
+
+    <div id="modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <div id="modal-body"></div>
+        </div>
     </div>
 
     <script src="/script.js"></script>
